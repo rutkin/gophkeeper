@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/theherk/viper"
@@ -16,7 +17,7 @@ var rootCmd = &cobra.Command{
 	Long:  "gophkeeper is a command line client for store secrets",
 }
 
-var httpClient = http.Client{Timeout: 5}
+var httpClient = http.Client{Timeout: time.Second * 5}
 
 func makeRequest(url string) error {
 	req, err := http.NewRequest(http.MethodPost, url, nil)

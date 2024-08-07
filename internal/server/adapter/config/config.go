@@ -12,6 +12,7 @@ const (
 type Config struct {
 	LogLevel        LogLevel `env:"LOG_LEVEL" envDefault:"DEBUG"`
 	TokenExpiration int      `env:"TOKEN_EXPIRATION" envDefault:"24"`
+	DatabaseDSN     string   `env:"DATABASE_DSN" envDefault:"host=localhost port=5432 user=myuser password=123 dbname=gophkeeper sslmode=disable"`
 }
 
 func New() (Config, error) {

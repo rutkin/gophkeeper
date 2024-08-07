@@ -13,6 +13,7 @@ import (
 	"github.com/rutkin/gophkeeper/internal/server/adapter/config"
 	httpserver "github.com/rutkin/gophkeeper/internal/server/adapter/http_server"
 	repositry "github.com/rutkin/gophkeeper/internal/server/adapter/repository/file"
+	"github.com/rutkin/gophkeeper/internal/server/adapter/repository/postgress"
 	"github.com/rutkin/gophkeeper/internal/server/adapter/token"
 	"github.com/rutkin/gophkeeper/internal/server/core/service"
 )
@@ -27,7 +28,7 @@ func initLogger(cfg config.Config) {
 }
 
 func initService(cfg config.Config) {
-	userRepository, err := repositry.NewUser("")
+	userRepository, err := postgress.NewUserRepo(cfg.DatabaseDSN)
 	if err != nil {
 		log.Err(err).Msg("filed to create user repository")
 		os.Exit(1)
