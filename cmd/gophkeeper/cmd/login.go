@@ -42,7 +42,7 @@ var loginCmd = &cobra.Command{
 			return err
 		}
 
-		req, err := json.Marshal(loginRequest{
+		body, err := json.Marshal(loginRequest{
 			Name:     loginUserName,
 			Password: string(password),
 		})
@@ -50,7 +50,12 @@ var loginCmd = &cobra.Command{
 			return err
 		}
 
-		resp, err := http.Post(upstreamURL+"/api/login", "application/json", bytes.NewBuffer(req))
+		req, err := http.NewRequest(http.MethodPost, upstreamURL+"/api/login", bytes.NewBuffer(body))
+		if err != nil {
+			return err
+		}
+
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}

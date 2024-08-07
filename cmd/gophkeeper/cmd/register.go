@@ -37,15 +37,19 @@ var registerCmd = &cobra.Command{
 			return err
 		}
 
-		req, err := json.Marshal(registerRequest{
+		body, err := json.Marshal(registerRequest{
 			Name:     userName,
 			Password: string(password),
 		})
 		if err != nil {
 			return err
 		}
+		req, err := http.NewRequest(http.MethodPost, upstreamURL+"/api/register", bytes.NewBuffer(body))
+		if err != nil {
+			return err
+		}
 
-		resp, err := http.Post(upstreamURL+"/api/register", "application/json", bytes.NewBuffer(req))
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}

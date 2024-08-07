@@ -84,7 +84,6 @@ var setFileCmd = &cobra.Command{
 			pw.CloseWithError(writer.Close())
 		}()
 
-		client := http.Client{}
 		req, err := http.NewRequest(http.MethodPost, upstreamURL+"/api/keeper/file", pr)
 		if err != nil {
 			return err
@@ -92,7 +91,7 @@ var setFileCmd = &cobra.Command{
 		setAuthToken(req)
 		req.Header.Set("Content-Type", ct)
 
-		resp, err := client.Do(req)
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}
@@ -131,8 +130,7 @@ var setCredCmd = &cobra.Command{
 		}
 		req.Header.Set("Content", "application/json")
 		setAuthToken(req)
-		client := http.Client{}
-		resp, err := client.Do(req)
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}
@@ -174,8 +172,7 @@ var setBankCmd = &cobra.Command{
 		}
 		req.Header.Set("Content", "application/json")
 		setAuthToken(req)
-		client := http.Client{}
-		resp, err := client.Do(req)
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}

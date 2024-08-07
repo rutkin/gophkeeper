@@ -29,14 +29,13 @@ var listCmd = &cobra.Command{
 	Short: "list user items",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		token := viper.GetString("token")
-		client := http.Client{}
 		req, err := http.NewRequest(http.MethodGet, upstreamURL+"/api/keeper", nil)
 		if err != nil {
 			return err
 		}
 		req.Header.Set("authorization", fmt.Sprintf("bearer %s", token))
 
-		resp, err := client.Do(req)
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}

@@ -31,13 +31,12 @@ var getFileCmd = &cobra.Command{
 	Use:   "file",
 	Short: "get binary data",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		client := http.Client{}
 		req, err := http.NewRequest(http.MethodGet, upstreamURL+"/api/keeper/file/"+dataID, nil)
 		if err != nil {
 			return err
 		}
 		setAuthToken(req)
-		resp, err := client.Do(req)
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}
@@ -119,13 +118,12 @@ var getBankCmd = &cobra.Command{
 	Use:   "bank",
 	Short: "get bank data",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		client := http.Client{}
 		req, err := http.NewRequest(http.MethodGet, upstreamURL+"/api/keeper/bank/"+dataID, nil)
 		if err != nil {
 			return err
 		}
 		setAuthToken(req)
-		resp, err := client.Do(req)
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			return err
 		}

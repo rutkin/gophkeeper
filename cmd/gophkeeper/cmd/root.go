@@ -16,14 +16,15 @@ var rootCmd = &cobra.Command{
 	Long:  "gophkeeper is a command line client for store secrets",
 }
 
+var httpClient = http.Client{Timeout: 5}
+
 func makeRequest(url string) error {
-	client := http.Client{}
 	req, err := http.NewRequest(http.MethodPost, url, nil)
 	if err != nil {
 		return err
 	}
 	setAuthToken(req)
-	resp, err := client.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		return err
 	}
